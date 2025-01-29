@@ -19,7 +19,6 @@ const Home = () => {
         </ul>
       </nav>
 
-      {/* Contenido principal */}
       <div className="container">
         <h1>Bienvenido a Ecommerce</h1>
         <p>Explora nuestros productos y disfruta de tus compras.</p>
