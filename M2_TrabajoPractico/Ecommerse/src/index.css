@@ -68,6 +68,7 @@ button:focus-visible {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 1rem;
 }
 
 
@@ -75,6 +76,10 @@ button:focus-visible {
   background-color: #333;
   padding: 10px;
   text-align: center;
+}
+
+.navbar button {
+  padding: 10rem;
 }
 
 .navbar ul {
@@ -103,6 +108,18 @@ button:focus-visible {
   border-radius: 5px;
 }
 
+.form__ {
+  padding: 10px;
+}
+
+.form__btns {
+  display: flex;
+}
+
+.form__btns button {
+  margin: 1rem;
+}
+
 .productList {
   display: flex;
   flex-wrap: wrap;
@@ -120,6 +137,4 @@ button:focus-visible {
   padding-top: 3rem;
   margin: 10px;
 }
-
-
 

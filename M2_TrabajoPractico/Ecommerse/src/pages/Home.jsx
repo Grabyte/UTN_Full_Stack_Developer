@@ -1,7 +1,23 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom"; // Añadimos useNavigate
 import Products from "../components/ProductsFromApi";
+import { getAuth, signOut } from "firebase/auth";
+import appFirebase from "../credenciales";
+
+const auth = getAuth(appFirebase);
 
 const Home = () => {
+  const navigate = useNavigate(); // Inicializamos useNavigate para redirigir después del logout
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth); // Cerrar sesión
+      console.log("Sesión cerrada");
+      navigate("/login"); // Redirigir al login después del logout
+    } catch (error) {
+      console.error("Error al cerrar sesión:", error.message);
+    }
+  };
+
   return (
     <>
       {/* Barra de navegación */}
@@ -11,10 +27,7 @@ const Home = () => {
             <Link to="/">Home</Link>
           </li>
           <li>
-            <Link to="/login">Login</Link>
-          </li>
-          <li>
-            <Link to="/register">Registro</Link>
+            <button onClick={handleLogout}>Cerrar Sesión</button>
           </li>
         </ul>
       </nav>
