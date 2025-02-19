@@ -1,12 +1,31 @@
-import { Link, useNavigate } from "react-router-dom"; // Añadimos useNavigate
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import Products from "../components/ProductsFromApi";
-import { getAuth, signOut } from "firebase/auth";
+import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
+import { getFirestore, doc, getDoc } from "firebase/firestore"; // Firestore
 import appFirebase from "../credenciales";
 
 const auth = getAuth(appFirebase);
+const db = getFirestore(appFirebase);
 
 const Home = () => {
-  const navigate = useNavigate(); // Inicializamos useNavigate para redirigir después del logout
+  const navigate = useNavigate();
+  const [userData, setUserData] = useState(null);
+  const [loading, setLoading] = useState(true); // Estado para indicar si los datos están cargando
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        const userDoc = await getDoc(doc(db, "usuarios", user.uid));
+        if (userDoc.exists()) {
+          setUserData(userDoc.data());
+        }
+      }
+      setLoading(false); // Indicar que terminó la carga
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   const handleLogout = async () => {
     try {
@@ -32,7 +51,10 @@ const Home = () => {
       </nav>
 
       <div className="container">
-        <h1>Bienvenido a Ecommerce</h1>
+        <h1>
+          Bienvenido a mi Ecommerce, 
+          {loading ? " Cargando..." : userData ? ` ${userData.nombre} ${userData.apellido}` : " Usuario"}
+        </h1>
         <p>Explora nuestros productos y disfruta de tus compras.</p>
       </div>
 

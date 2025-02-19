@@ -1,29 +1,34 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom"; // Importamos useNavigate de react-router-dom
-import appFirebase from "../credenciales";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-
-const auth = getAuth(appFirebase);
+import { useNavigate } from "react-router-dom";
+import { auth, db } from "../credenciales"; // Importar directamente sin necesidad de inicializar
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
 
 const Register = () => {
-  const navigate = useNavigate(); // Inicializamos el hook para la navegación
-  const [successMessage, setSuccessMessage] = useState(""); // Estado para el mensaje de éxito
+  const navigate = useNavigate();
+  const [successMessage, setSuccessMessage] = useState("");
 
   const functionAutenticacion = async (e) => {
     e.preventDefault();
     const email = e.target.emailRegistro.value;
     const password = e.target.passwordRegistro.value;
+    const nombre = e.target.nombreRegistro.value;
+    const apellido = e.target.apellidoRegistro.value;
 
     try {
-      // Crear nuevo usuario
+      // Crear usuario en Firebase Authentication
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      console.log("Usuario registrado:", userCredential.user);
+      const user = userCredential.user;
+      console.log("Usuario registrado:", user);
+
+      // Guardar solo nombre y apellido en Firestore
+      await setDoc(doc(db, "usuarios", user.uid), {
+        nombre,
+        apellido
+      });
 
       setSuccessMessage("¡Registro exitoso!");
-
-      setTimeout(() => {
-        navigate("/login");
-      }, 1500);
+      setTimeout(() => navigate("/login"), 1500);
     } catch (error) {
       console.error("Error al registrar:", error.message);
       alert("Error al registrar el usuario");
@@ -35,6 +40,14 @@ const Register = () => {
       <h1>Registro</h1>
       <form onSubmit={functionAutenticacion}>
         <div>
+          <label>Nombre:</label>
+          <input type="text" placeholder="Ingresa tu nombre" name="nombreRegistro" required />
+        </div>
+        <div>
+          <label>Apellido:</label>
+          <input type="text" placeholder="Ingresa tu apellido" name="apellidoRegistro" required />
+        </div>
+        <div>
           <label>Correo electrónico:</label>
           <input type="email" placeholder="Ingresa tu correo electrónico" name="emailRegistro" required />
         </div>
@@ -45,20 +58,11 @@ const Register = () => {
         <button type="submit">Registrarse</button>
       </form>
 
-      <div>
-        <p>¿Ya tienes una cuenta?</p>
-        <button onClick={() => navigate("/login")}>Iniciar sesión</button>
-      </div>
-      {successMessage && (
-        <div style={{ color: 'green', marginTop: '10px' }}>
-          {successMessage}
-        </div>
-      )}
+      {successMessage && <div style={{ color: 'green', marginTop: '10px' }}>{successMessage}</div>}
     </div>
   );
 };
 
 export default Register;
-
 
 

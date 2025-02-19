@@ -1,26 +1,26 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { getFirestore, doc, setDoc, getDoc } from "firebase/firestore"; // Importar Firestore
 import appFirebase from "../credenciales";
 import "../index.css";
 
 const auth = getAuth(appFirebase);
+const db = getFirestore(appFirebase);
 
 const Login = () => {
-  const navigate = useNavigate(); // Hook para navegar a otras páginas
-  const [errorMessage, setErrorMessage] = useState(""); // Estado para manejar errores
+  const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState("");
 
   const functionAutenticacion = async (e) => {
     e.preventDefault();
-    
     const email = e.target.emailIngresar.value;
     const password = e.target.passwordIngresar.value;
 
     try {
-      // Intentar iniciar sesión con correo y contraseña
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       console.log("Usuario autenticado:", userCredential.user);
-      navigate("/home"); // Redirige a la página de inicio después del login
+      navigate("/home");
     } catch (error) {
       console.error("Error al iniciar sesión:", error.message);
       setErrorMessage("Correo o contraseña incorrectos");
@@ -28,12 +28,25 @@ const Login = () => {
   };
 
   const handleGoogleSignIn = async () => {
-    const provider = new GoogleAuthProvider(); // Crear el proveedor de Google
+    const provider = new GoogleAuthProvider();
     try {
-      const result = await signInWithPopup(auth, provider); // Iniciar sesión con Google
+      const result = await signInWithPopup(auth, provider);
       const user = result.user;
       console.log("Usuario autenticado con Google:", user);
-      navigate("/home"); // Redirigir a la página de inicio después del login
+
+      // Verificar si ya existe en Firestore
+      const userRef = doc(db, "usuarios", user.uid);
+      const docSnap = await getDoc(userRef);
+
+      if (!docSnap.exists()) {
+        // Guardar en Firestore si no existe
+        await setDoc(userRef, {
+          nombre: user.displayName ? user.displayName.split(" ")[0] : "Usuario",
+          apellido: user.displayName ? user.displayName.split(" ")[1] || "" : "",
+        });
+      }
+
+      navigate("/home");
     } catch (error) {
       console.error("Error al iniciar sesión con Google:", error.message);
       setErrorMessage("Hubo un error al intentar iniciar sesión con Google");
@@ -55,11 +68,9 @@ const Login = () => {
         <div className="form__btns">
           <button type="submit">Iniciar sesión</button>
           <button onClick={handleGoogleSignIn}> Iniciar sesión con Google </button>
-          <button><Link to="/register">Registrarse</Link></button>
+          <div><Link to="/register">Registrarse</Link></div>
         </div>
       </form>
-
-      
 
       {errorMessage && (
         <div style={{ color: 'red', marginTop: '10px' }}>

@@ -78,10 +78,6 @@ button:focus-visible {
   text-align: center;
 }
 
-.navbar button {
-  padding: 10rem;
-}
-
 .navbar ul {
   list-style: none;
   display: flex;
