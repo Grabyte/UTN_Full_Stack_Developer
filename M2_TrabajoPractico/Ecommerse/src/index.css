@@ -199,7 +199,24 @@ button:focus-visible {
   background: #b93b2d;
 }
 
-/* 🔗 Enlace de registro */
+.register-btn {
+  background: #007bff;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+  width: 100%;
+}
+
+.register-btn:hover {
+  background: #0056b3;
+}
+
+
 .form__btns div a {
   display: block;
   text-align: center;
@@ -213,13 +230,14 @@ button:focus-visible {
   text-decoration: underline;
 }
 
-/* ❌ Mensaje de error */
 .error-message {
   color: #ff4d4d;
   font-weight: bold;
   margin-top: 10px;
   text-align: center;
 }
+
+/* Productos */
 
 .productList {
   display: flex;

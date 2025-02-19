@@ -68,7 +68,7 @@ const Login = () => {
         <div className="form__btns">
           <button type="submit">Iniciar sesión</button>
           <button onClick={handleGoogleSignIn}> Iniciar sesión con Google </button>
-          <div><Link to="/register">Registrarse</Link></div>
+          <button className="register-btn" onClick={() => navigate("/register")}>Registrarse</button>
         </div>
       </form>
 
