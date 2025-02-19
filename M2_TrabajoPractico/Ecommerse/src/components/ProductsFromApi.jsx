@@ -7,9 +7,9 @@ const Products = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch("https://fakestoreapi.com/products"); // Corrección del fetch
-        const data = await response.json(); // Convertimos la respuesta a JSON
-        console.log("Datos obtenidos desde la API:", data); // Verifica los datos
+        const response = await fetch("https://fakestoreapi.com/products");
+        const data = await response.json();
+        console.log("Datos obtenidos desde la API:", data);
 
         const mappedProducts = data.slice(0, 4).map((product) => ({
           id: product.id,

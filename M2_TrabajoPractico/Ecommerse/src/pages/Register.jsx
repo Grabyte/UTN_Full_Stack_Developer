@@ -19,13 +19,11 @@ const Register = () => {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       console.log("Usuario registrado:", userCredential.user);
 
-      // Mostrar el mensaje de éxito
       setSuccessMessage("¡Registro exitoso!");
 
-      // Redirigir a la página de login después de 3 segundos
       setTimeout(() => {
-        navigate("/login"); // Redirige al login
-      }, 1500); // 3 segundos
+        navigate("/login");
+      }, 1500);
     } catch (error) {
       console.error("Error al registrar:", error.message);
       alert("Error al registrar el usuario");
@@ -51,7 +49,6 @@ const Register = () => {
         <p>¿Ya tienes una cuenta?</p>
         <button onClick={() => navigate("/login")}>Iniciar sesión</button>
       </div>
-      {/* Mostrar el mensaje de éxito si está presente */}
       {successMessage && (
         <div style={{ color: 'green', marginTop: '10px' }}>
           {successMessage}

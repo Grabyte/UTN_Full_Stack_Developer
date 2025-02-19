@@ -10,9 +10,9 @@ const Home = () => {
 
   const handleLogout = async () => {
     try {
-      await signOut(auth); // Cerrar sesión
+      await signOut(auth);
       console.log("Sesión cerrada");
-      navigate("/login"); // Redirigir al login después del logout
+      navigate("/login");
     } catch (error) {
       console.error("Error al cerrar sesión:", error.message);
     }
@@ -20,7 +20,6 @@ const Home = () => {
 
   return (
     <>
-      {/* Barra de navegación */}
       <nav className="navbar">
         <ul>
           <li>
@@ -37,7 +36,6 @@ const Home = () => {
         <p>Explora nuestros productos y disfruta de tus compras.</p>
       </div>
 
-      {/* Lista de productos */}
       <Products />
     </>
   );

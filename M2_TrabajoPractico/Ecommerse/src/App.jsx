@@ -24,7 +24,7 @@ function App() {
 
   return (
     <div>
-      {user ? <Home /> : <Login />} {/* Aquí solo muestras Home o Login */}
+      {user ? <Home /> : <Login />}
     </div>
   );
 }
