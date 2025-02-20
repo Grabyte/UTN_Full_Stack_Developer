@@ -56,7 +56,7 @@ function App () {
 
   return (
     <main className='board'>
-      <h1>3 en ralla</h1>
+      <h1> <span className='span__text'>Tik</span> <span className='span__text'>Tak</span> <span className='span__text'>Toe</span> </h1>
       <section className='game'>
         {
           board.map((value, index) => {

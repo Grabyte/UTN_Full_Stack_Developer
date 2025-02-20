@@ -31,7 +31,7 @@ body {
 
 .board {
   width: fit-content;
-  margin: 40px auto;
+  margin: 10rem auto;
   text-align: center;
 }
 
@@ -128,4 +128,13 @@ body {
   place-items: center;
   cursor: pointer;
   font-size: 48px;
+}
+
+.span__text {
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-weight: 800;
+  background-image: linear-gradient(to left bottom, #ee0505, #ef4900, #ef6b00, #ed8600, #eb9f12);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
 }
