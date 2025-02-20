@@ -38,28 +38,31 @@ const Home = () => {
   };
 
   return (
-    <>
-      <nav className="navbar">
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <button onClick={handleLogout}>Cerrar Sesión</button>
-          </li>
-        </ul>
-      </nav>
-
-      <div className="container">
-        <h1>
-          Bienvenido a mi Ecommerce, 
-          {loading ? " Cargando..." : userData ? ` ${userData.nombre} ${userData.apellido}` : " Usuario"}
-        </h1>
-        <p>Explora nuestros productos y disfruta de tus compras.</p>
+<>
+  {/* Navbar debe estar fuera del container para que ocupe todo el ancho */}
+  <nav className="navbar">
+    <div className="nav-content">
+      <div className="nav-left">
+        <Link to="/">Home</Link>
       </div>
+      <div className="nav-right">
+        <button onClick={handleLogout}>Cerrar Sesión</button>
+      </div>
+    </div>
+  </nav>
 
-      <Products />
-    </>
+  {/* Contenedor del contenido principal */}
+  <div className="container">
+    <h1>
+      Bienvenido a mi Ecommerce, 
+      {loading ? " Cargando..." : userData ? ` ${userData.nombre} ${userData.apellido}` : " Usuario"}
+    </h1>
+    <p>Explora nuestros productos y disfruta de tus compras.</p>
+  </div>
+
+  <Products />
+</>
+
   );
 };
 

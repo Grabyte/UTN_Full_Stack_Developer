@@ -60,55 +60,46 @@ button:focus-visible {
 }
 
 .container {
-  width: 100%;
-  margin: 0 auto;
-  padding: 20px;
-  text-align: left;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem;
-}
-
-
-.navbar {
-  background-color: #333;
-  padding: 10px;
-  text-align: center;
-}
-
-.navbar ul {
-  list-style: none;
-  display: flex;
-  justify-content: space-between; /* Acomoda los elementos */
-  align-items: center; /* Centra verticalmente */
-  padding: 0;
-  margin: 0;
   width: 90%;
   max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
-.navbar li {
+
+/* Navbar ocupa todo el ancho */
+.navbar {
+  width: 100%;
+  background-color: #333;
+  padding: 10px 0;
+}
+
+/* Contenido alineado dentro de la navbar */
+.nav-content {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
   display: flex;
-  align-items: center; /* Asegura que los elementos estén alineados */
+  justify-content: space-between;
+  align-items: center;
 }
 
-.navbar a {
+/* Estilos de los enlaces y botones */
+.nav-left a {
   color: white;
-  text-decoration: none;
   font-size: 18px;
+  text-decoration: none;
   padding: 8px 12px;
   transition: 0.3s;
 }
 
-.navbar a:hover {
+.nav-left a:hover {
   background-color: #555;
   border-radius: 5px;
 }
 
-.navbar button {
-  background-color: red; /* Color más visible */
+.nav-right button {
+  background-color: red;
   color: white;
   padding: 8px 12px;
   font-size: 16px;
@@ -117,9 +108,10 @@ button:focus-visible {
   border-radius: 5px;
 }
 
-.navbar button:hover {
+.nav-right button:hover {
   background-color: darkred;
 }
+
 
 
 /* 🏷️ Formulario */
@@ -237,23 +229,101 @@ button:focus-visible {
   text-align: center;
 }
 
-/* Productos */
-
+/* Contenedor de la lista de productos */
 .productList {
-  display: flex;
-  flex-wrap: wrap;
-  width: 100%;
-  justify-content: space-around;
-  padding: 0;
-  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: auto;
 }
 
+/* Tarjeta de producto */
 .productInfo {
-  flex: 1 1 calc(25% - 20px);
-  max-width: calc(25% - 20px);
-  min-width: 200px;
-  text-align: center;
-  padding-top: 3rem;
-  margin: 10px;
+  background: #2a2a2a;
+  border-radius: 12px;
+  padding: 1.5rem;
+  text-align: left;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  
+  /* Ajuste de altura */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  max-height: 500px; /* Limitar la altura máxima de las tarjetas */
+  overflow: hidden;
 }
 
+/* Efecto hover */
+.productInfo:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* TÍTULO (máximo 2 líneas, con "..." si hay más) */
+.productInfo h2 {
+  font-size: 1.5rem;
+  color: #f4f4f4;
+  margin-bottom: 10px;
+  
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Máximo 2 líneas */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+
+  /* Altura fija para asegurar que todos los títulos se alineen */
+  height: 3rem; /* Esto asegura que los títulos sean siempre del mismo tamaño */
+  line-height: 1.5rem; /* Ajuste para centrar el texto */
+}
+
+/* DESCRIPCIÓN (máximo 4 líneas, con "..." si hay más) */
+.productInfo p:nth-of-type(1) {
+  font-size: 1rem;
+  color: #bfbfbf;
+  margin-bottom: 8px;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 4; /* Máximo 4 líneas */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Precio */
+.productInfo p:nth-of-type(2) {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #ff9800;
+}
+
+/* Stock */
+.productInfo p:nth-of-type(3) {
+  font-size: 1rem;
+  color: #4caf50;
+}
+
+/* Botón fijo abajo */
+.productInfo button {
+  background: #ff5722;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  margin-top: auto; /* Esto hace que el botón siempre esté alineado abajo */
+}
+
+.productInfo button:hover {
+  background: #e64a19;
+}
+
+/* Mensaje de compra */
+.productInfo p:last-child {
+  font-weight: bold;
+  color: #ffeb3b;
+  margin-top: 10px;
+}
