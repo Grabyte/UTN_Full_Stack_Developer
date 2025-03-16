@@ -54,30 +54,30 @@ const Login = () => {
   };
 
   return (
-    <div className="container">
-      <h1>Iniciar sesión</h1>
-      <form className="form__" onSubmit={functionAutenticacion}>
-        <div>
-          <label>Correo electrónico:</label>
-          <input type="email" placeholder="Ingresa tu correo electrónico" id="emailIngresar" required />
-        </div>
-        <div>
-          <label>Contraseña:</label>
-          <input type="password" placeholder="Ingresa tu contraseña" id="passwordIngresar" required />
-        </div>
-        <div className="form__btns">
-          <button type="submit">Iniciar sesión</button>
-          <button onClick={handleGoogleSignIn}> Iniciar sesión con Google </button>
-          <button className="register-btn" onClick={() => navigate("/register")}>Registrarse</button>
-        </div>
-      </form>
-
-      {errorMessage && (
-        <div style={{ color: 'red', marginTop: '10px' }}>
-          {errorMessage}
-        </div>
-      )}
+    <section className="login-container">
+  <h1>Iniciar sesión</h1>
+  <form className="form__" onSubmit={functionAutenticacion}>
+    <div style={{ width: '100%' }}>
+      <label>Correo electrónico:</label>
+      <input type="email" placeholder="Ingresa tu correo electrónico" id="emailIngresar" required />
     </div>
+    <div style={{ width: '100%' }}>
+      <label>Contraseña:</label>
+      <input type="password" placeholder="Ingresa tu contraseña" id="passwordIngresar" required />
+    </div>
+    <div className="form__btns">
+      <button type="submit">Iniciar sesión</button>
+      <button onClick={handleGoogleSignIn}> Iniciar sesión con Google </button>
+      <button className="register-btn" onClick={() => navigate("/register")}>Registrarse</button>
+    </div>
+  </form>
+
+  {errorMessage && (
+    <div style={{ color: 'red', marginTop: '10px' }}>
+      {errorMessage}
+    </div>
+  )}
+</section>
   );
 };
 

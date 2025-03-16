@@ -24,7 +24,7 @@ const Register = () => {
       // Guardar solo nombre y apellido en Firestore
       await setDoc(doc(db, "usuarios", user.uid), {
         nombre,
-        apellido
+        apellido,
       });
 
       setSuccessMessage("¡Registro exitoso!");
@@ -36,7 +36,7 @@ const Register = () => {
   };
 
   return (
-    <div className="container">
+    <div className="signup-container">
       <h1>Registro</h1>
       <form onSubmit={functionAutenticacion}>
         <div>
@@ -56,13 +56,11 @@ const Register = () => {
           <input type="password" placeholder="Ingresa tu contraseña" name="passwordRegistro" required />
         </div>
         <button type="submit">Registrarse</button>
+        <button onClick={() => navigate("/login")}>Iniciar sesión</button>
       </form>
-
-      {successMessage && <div style={{ color: 'green', marginTop: '10px' }}>{successMessage}</div>}
+      {successMessage && <div className="success-message">{successMessage}</div>}
     </div>
   );
 };
 
 export default Register;
-
-

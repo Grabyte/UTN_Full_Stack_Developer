@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { useState } from "react";
 
 function PurchaseButton({ stock, onPurchase }) {
@@ -18,7 +17,10 @@ function PurchaseButton({ stock, onPurchase }) {
             <button onClick={handlePurchase}>
                 Comprar
             </button>
-            {purchaseMessage && <p>{purchaseMessage}</p>}
+            {/* Mensaje con espacio reservado */}
+            <p style={{ visibility: purchaseMessage ? "visible" : "hidden", minHeight: "24px" }}>
+                {purchaseMessage || " "}
+            </p>
         </div>
     );
 }

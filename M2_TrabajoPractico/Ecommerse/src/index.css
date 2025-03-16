@@ -66,6 +66,100 @@ button:focus-visible {
   padding: 20px;
 }
 
+/* 🏷️ Estilos para el contenedor de registro */
+.signup-container,
+.login-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #1a1a1a, #242424); /* Fondo degradado */
+  color: white;
+  padding: 20px;
+}
+
+/* 🏷️ Título del formulario */
+.signup-container h1 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+/* 🏷️ Formulario */
+.signup-container form {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  backdrop-filter: blur(10px); /* Efecto de vidrio */
+}
+
+/* 🖋️ Estilos para etiquetas */
+.signup-container form label {
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 5px;
+}
+
+/* 📩 Inputs */
+.signup-container form input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  outline: none;
+}
+
+.signup-container form input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* 🖱️ Botón de registro */
+.signup-container form button {
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+  color: white;
+}
+
+.signup-container form button:nth-of-type(1) {
+  background: #007bff;
+}
+
+.signup-container form button:nth-of-type(1):hover {
+  background: #3f47d9; /* Un poco más oscuro */
+}
+
+.signup-container form button:nth-of-type(2) {
+  background: #4caf50;
+}
+
+.signup-container form button:nth-of-type(2):hover {
+  background: #3e8e41; /* También más oscuro */
+}
+
+/* 🏷️ Mensaje de éxito */
+.signup-container .success-message {
+  color: #4caf50; /* Color verde para el mensaje de éxito */
+  font-weight: bold;
+  margin-top: 10px;
+  text-align: center;
+}
+
 
 /* Navbar ocupa todo el ancho */
 .navbar {
@@ -112,16 +206,14 @@ button:focus-visible {
   background-color: darkred;
 }
 
-
-
-/* 🏷️ Formulario */
+/* 🏷️ Contenedor del formulario */
 .form__ {
   background: rgba(255, 255, 255, 0.1);
   padding: 2rem;
   border-radius: 12px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   width: 90%;
-  max-width: 400px;
+  max-width: 25rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -135,11 +227,12 @@ button:focus-visible {
   color: white;
   margin-bottom: 5px;
   display: block;
+  width: 100%; /* Asegura que las etiquetas ocupen el 100% del ancho */
 }
 
 /* 📩 Inputs */
 .form__ input {
-  width: 100%;
+  width: 100%; /* Ocupa el 100% del ancho del contenedor */
   padding: 10px;
   margin-bottom: 15px;
   border: none;
@@ -148,6 +241,7 @@ button:focus-visible {
   background: rgba(255, 255, 255, 0.2);
   color: white;
   outline: none;
+  box-sizing: border-box; /* Asegura que el padding no afecte el ancho total */
 }
 
 .form__ input::placeholder {
@@ -163,14 +257,14 @@ button:focus-visible {
 }
 
 .form__btns button {
-  padding: 12px;
+  padding: 10px;
   border: none;
   border-radius: 8px;
   font-size: 16px;
   cursor: pointer;
   font-weight: bold;
   transition: 0.3s;
-  width: 100%;
+  width: 100%; /* Asegura que los botones ocupen el 100% del ancho */
 }
 
 .form__btns button:first-child {
@@ -205,7 +299,7 @@ button:focus-visible {
 }
 
 .register-btn:hover {
-  background: #0056b3;
+  background: #3f47d9;
 }
 
 
@@ -233,7 +327,7 @@ button:focus-visible {
 .productList {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
+  gap: 5rem 1rem;
   padding: 2rem;
   max-width: 1200px;
   margin: auto;
@@ -247,13 +341,11 @@ button:focus-visible {
   text-align: left;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  
-  /* Ajuste de altura */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
-  max-height: 500px; /* Limitar la altura máxima de las tarjetas */
+  max-height: 500px;
   overflow: hidden;
 }
 
@@ -268,14 +360,12 @@ button:focus-visible {
   font-size: 1.5rem;
   color: #f4f4f4;
   margin-bottom: 10px;
-  
   display: -webkit-box;
-  -webkit-line-clamp: 2; /* Máximo 2 líneas */
+  -webkit-line-clamp: 4; /* Máximo 4 líneas */
+  line-clamp: 4;
   -webkit-box-orient: vertical;
   overflow: hidden;
-
-  /* Altura fija para asegurar que todos los títulos se alineen */
-  height: 3rem; /* Esto asegura que los títulos sean siempre del mismo tamaño */
+  height: 6rem; /* Esto asegura que los títulos sean siempre del mismo tamaño */
   line-height: 1.5rem; /* Ajuste para centrar el texto */
 }
 
@@ -287,6 +377,7 @@ button:focus-visible {
 
   display: -webkit-box;
   -webkit-line-clamp: 4; /* Máximo 4 líneas */
+  line-clamp: 4;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -323,6 +414,7 @@ button:focus-visible {
 
 /* Mensaje de compra */
 .productInfo p:last-child {
+  min-height: 1rem;
   font-weight: bold;
   color: #ffeb3b;
   margin-top: 10px;
