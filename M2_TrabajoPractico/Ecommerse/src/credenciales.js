@@ -7,19 +7,18 @@ import { getAuth } from "firebase/auth";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyCJdGLkyLjAXJsQmPT8_yO5dWJ4bQ6Mhtg",
-  authDomain: "ecommerse-utn.firebaseapp.com",
-  projectId: "ecommerse-utn",
-  storageBucket: "ecommerse-utn.firebasestorage.app",
-  messagingSenderId: "767259909621",
-  appId: "1:767259909621:web:99c58c3f60ac3d931854bc"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
-
 // Initialize Firebase
 const appFirebase = initializeApp(firebaseConfig);
 // Exportaciones
 const auth = getAuth(appFirebase);
 const db = getFirestore(appFirebase);
 
-export default appFirebase; // Exportación por defecto
-export { auth, db }; // Exportaciones nombradas
+export default appFirebase;
+export { auth, db };
