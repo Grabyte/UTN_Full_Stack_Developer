@@ -365,14 +365,65 @@ button:focus-visible {
   content: "✓ ";
 }
 
+/* Estilos para el componenete de productos */
+/* Estilos para el buscador */
+.search-container {
+  padding: 1rem 3rem;
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.search-input {
+  width: 100%;
+  max-width: 500px;
+  padding: 10px 15px;
+  border-radius: 25px;
+  border: 2px solid #646cff;
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.3s ease;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.search-input:focus {
+  border-color: #535bf2;
+  box-shadow: 0 0 10px rgba(83, 91, 242, 0.5);
+}
+
+.no-results {
+  text-align: center;
+  padding: 2rem;
+  font-size: 1.2rem;
+  color: #bfbfbf;
+  grid-column: 1 / -1;
+}
+
+/* Mantén todos tus estilos existentes para los productos */
 .productList {
   display: grid;
   justify-content: center;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(350px, 0.5fr));
   gap: 6rem 2rem;
   padding: 3rem;
-  min-width: 80vw;
   margin: 0 auto;
+}
+
+.clamp-lines {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.productInfo h2.clamp-lines {
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+}
+
+.product-description.clamp-lines {
+  -webkit-line-clamp: 4;
+  line-clamp: 4;
 }
 
 .productInfo {

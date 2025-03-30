@@ -41,7 +41,6 @@ function ProductInfo({ producto }) {
         const lines = Math.round(contentHeight / lineHeight);
         setNeedsExpand(lines > linesThreshold);
         
-        // Si no necesita expandir pero está expandido, lo contraemos
         if (!(lines > linesThreshold)) {
           if (ref === titleRef && isTitleExpanded) {
             setIsTitleExpanded(false);
@@ -139,11 +138,33 @@ function ProductInfo({ producto }) {
 }
 
 function ProductList({ products }) {
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const filteredProducts = products.filter(producto =>
+    producto.nombre.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
-    <div className="productList">
-      {products.map((producto) => (
-        <ProductInfo key={producto.id} producto={producto} />
-      ))}
+    <div>
+      <div className="search-container">
+        <input
+          type="text"
+          placeholder="Buscar productos..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="search-input"
+        />
+      </div>
+      
+      <div className="productList">
+        {filteredProducts.length === 0 ? (
+          <p className="no-results">No se encontraron productos</p>
+        ) : (
+          filteredProducts.map((producto) => (
+            <ProductInfo key={producto.id} producto={producto} />
+          ))
+        )}
+      </div>
     </div>
   );
 }
