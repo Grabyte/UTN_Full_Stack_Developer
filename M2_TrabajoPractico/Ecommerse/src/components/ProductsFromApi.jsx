@@ -11,11 +11,12 @@ const Products = () => {
         const data = await response.json();
         console.log("Datos obtenidos desde la API:", data);
 
-        const mappedProducts = data.slice(0, 4).map((product) => ({
+        const mappedProducts = data.slice(0, 20).map((product) => ({
           id: product.id,
           nombre: product.title,
           descripcion: product.description,
           precio: product.price,
+          imagen: product.image,
           stock: 10, // Stock inicial de 10 para todos los productos
         }));
 
