@@ -1,12 +1,23 @@
 import { useState, useRef, useEffect } from "react";
 
-function PurchaseButton({ stock, onPurchase }) {
+function PurchaseButton({ stock, onPurchase, onAddToCart, producto }) {
   const [purchaseMessage, setPurchaseMessage] = useState("");
+
+  // Verificación adicional para asegurar que onAddToCart es una función
+  const handleAddToCart = () => {
+    if (typeof onAddToCart === 'function') {
+      onAddToCart(producto);
+    } else {
+      console.error('onAddToCart no es una función', onAddToCart);
+    }
+  };
 
   const handlePurchase = () => {
     if (stock > 0) {
-      onPurchase();
-      setPurchaseMessage("Gracias por su compra");
+      onPurchase(); // Actualiza el stock
+      handleAddToCart(); // Añade al carrito de forma segura
+      setPurchaseMessage("¡Añadido al carrito!");
+      setTimeout(() => setPurchaseMessage(""), 2000);
     } else {
       setPurchaseMessage("Stock no disponible");
     }
@@ -14,24 +25,37 @@ function PurchaseButton({ stock, onPurchase }) {
 
   return (
     <div>
-      <button onClick={handlePurchase} className="purchase-button">
-        Comprar
+      <button 
+        onClick={handlePurchase} 
+        className="purchase-button"
+        disabled={stock <= 0}
+      >
+        {stock > 0 ? "Añadir al Carrito" : "Sin Stock"}
       </button>
-      <p className="purchase-message" style={{ minHeight: "24px" }}>
-        {purchaseMessage}
-      </p>
+      {purchaseMessage && (
+        <p className="purchase-message" style={{ minHeight: "24px" }}>
+          {purchaseMessage}
+        </p>
+      )}
     </div>
   );
 }
 
-function ProductInfo({ producto }) {
-  const [stock, setStock] = useState(producto.stock);
+function ProductInfo({ producto, onAddToCart }) {
+  const [stock, setStock] = useState(producto.stock || 0);
   const [isTitleExpanded, setIsTitleExpanded] = useState(false);
   const [needsTitleExpand, setNeedsTitleExpand] = useState(false);
   const [isDescExpanded, setIsDescExpanded] = useState(false);
   const [needsDescExpand, setNeedsDescExpand] = useState(false);
   const titleRef = useRef(null);
   const descRef = useRef(null);
+
+  // Verificación de la prop onAddToCart
+  useEffect(() => {
+    if (typeof onAddToCart !== 'function') {
+      console.error('ProductInfo: onAddToCart no es una función', onAddToCart);
+    }
+  }, [onAddToCart]);
 
   useEffect(() => {
     const checkOverflow = (ref, setNeedsExpand, linesThreshold) => {
@@ -71,13 +95,14 @@ function ProductInfo({ producto }) {
     }
 
     return () => {
-      if (titleRef.current) titleObserver.unobserve(titleRef.current);
-      if (descRef.current) descObserver.unobserve(descRef.current);
+      titleObserver.disconnect();
+      descObserver.disconnect();
     };
   }, [producto.nombre, producto.descripcion, isTitleExpanded, isDescExpanded]);
 
   const handlePurchase = () => {
-    setStock((prevStock) => Math.max(prevStock - 1, 0));
+    //momentaneamente le restamos 0 al prevstcok del carrito por que elimine la cantidad de stock de este ecommerce se ejemplo
+    setStock((prevStock) => Math.max(prevStock - 0, 0));
   };
 
   const toggleTitle = () => {
@@ -130,22 +155,42 @@ function ProductInfo({ producto }) {
           </span>
         )}
       </p>
-      <p className="product-price">${producto.precio}</p>
-      <p className="product-stock">Stock: {stock}</p>
-      <PurchaseButton stock={stock} onPurchase={handlePurchase} />
+      <p className="product-price">${producto.precio?.toFixed(2) || '0.00'}</p>
+      {/* <p className="product-stock">Stock: {stock}</p> */}
+      <PurchaseButton 
+        stock={stock}
+        onPurchase={handlePurchase}
+        onAddToCart={onAddToCart}
+        producto={producto}
+      />
     </div>
   );
 }
 
-function ProductList({ products }) {
+function ProductList({ products = [], onAddToCart }) {
   const [searchTerm, setSearchTerm] = useState('');
 
+  // Verificación exhaustiva de props
+  useEffect(() => {
+    if (typeof onAddToCart !== 'function') {
+      console.error('ProductList: onAddToCart debe ser una función', onAddToCart);
+    }
+    
+    if (!Array.isArray(products)) {
+      console.error('ProductList: products debe ser un array', products);
+    }
+  }, [onAddToCart, products]);
+
+  if (!Array.isArray(products)) {
+    return <div className="error">Error: Formato de productos inválido</div>;
+  }
+
   const filteredProducts = products.filter(producto =>
-    producto.nombre.toLowerCase().includes(searchTerm.toLowerCase())
+    producto?.nombre?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
-    <div>
+    <div className="product-list-container">
       <div className="search-container">
         <input
           type="text"
@@ -161,7 +206,11 @@ function ProductList({ products }) {
           <p className="no-results">No se encontraron productos</p>
         ) : (
           filteredProducts.map((producto) => (
-            <ProductInfo key={producto.id} producto={producto} />
+            <ProductInfo 
+              key={producto.id} 
+              producto={producto} 
+              onAddToCart={onAddToCart}
+            />
           ))
         )}
       </div>
