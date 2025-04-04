@@ -1,0 +1,55 @@
+<div class="form-container">
+  <h2>¡Déjanos tu mensaje!</h2>
+  
+  <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+    
+    <!-- Campo Nombre -->
+    <div class="form-group">
+      <label for="name">Nombre:</label>
+      <input id="name" formControlName="name" type="text" placeholder="Tu nombre">
+      <div class="error">
+        @if (contactForm.get('name')?.invalid && contactForm.get('name')?.touched) {
+          @if (contactForm.get('name')?.errors?.['required']) { <small>El nombre es obligatorio.</small> }
+          @if (contactForm.get('name')?.errors?.['minlength']) { <small>Debe tener al menos 3 caracteres.</small> }
+          @if (contactForm.get('name')?.errors?.['maxlength']) { <small>Máximo 50 caracteres permitidos.</small> }
+        }
+      </div>
+    </div>
+
+    <!-- Campo Email -->
+    <div class="form-group">
+      <label for="email">Correo electrónico:</label>
+      <input id="email" formControlName="email" type="email" placeholder="tuemail@example.com">
+      <div class="error">
+        @if (contactForm.get('email')?.invalid && contactForm.get('email')?.touched) {
+          @if (contactForm.get('email')?.errors?.['required']) { <small>El correo es obligatorio.</small> }
+          @if (contactForm.get('email')?.errors?.['email']) { <small>Formato de correo inválido.</small> }
+          @if (contactForm.get('email')?.errors?.['minlength']) { <small>Debe tener al menos 5 caracteres.</small> }
+          @if (contactForm.get('email')?.errors?.['maxlength']) { <small>Máximo 100 caracteres permitidos.</small> }
+        }
+      </div>
+    </div>
+
+    <!-- Campo Mensaje -->
+    <div class="form-group">
+      <label for="message">Mensaje:</label>
+      <textarea id="message" formControlName="message" placeholder="Escribe tu mensaje aquí..."></textarea>
+      <div class="error">
+        @if (contactForm.get('message')?.invalid && contactForm.get('message')?.touched) {
+          @if (contactForm.get('message')?.errors?.['required']) { <small>El mensaje es obligatorio.</small> }
+          @if (contactForm.get('message')?.errors?.['minlength']) { <small>Debe tener al menos 10 caracteres.</small> }
+          @if (contactForm.get('message')?.errors?.['maxlength']) { <small>Máximo 500 caracteres permitidos.</small> }
+        }
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="contactForm.invalid">Enviar</button>
+  </form>
+
+  <!-- Mensaje de éxito -->
+  @if (successMessage) {
+    <div class="success-message">
+      ¡Mensaje enviado con éxito!
+    </div>
+  }
+</div>

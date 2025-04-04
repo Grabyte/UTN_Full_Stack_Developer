@@ -16,7 +16,7 @@ function PurchaseButton({ stock, onPurchase, onAddToCart, producto }) {
     if (stock > 0) {
       onPurchase(); // Actualiza el stock
       handleAddToCart(); // Añade al carrito de forma segura
-      setPurchaseMessage("¡Añadido al carrito!");
+      setPurchaseMessage("¡Agregado al carrito!");
       setTimeout(() => setPurchaseMessage(""), 2000);
     } else {
       setPurchaseMessage("Stock no disponible");

@@ -1,0 +1,45 @@
+/* Estilos para la barra de navegación */
+header {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  background-color: #282c34; /* Fondo oscuro */
+  padding: 10px 20px;
+  z-index: 1000; /* Asegura que quede encima de otros elementos */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Quita los estilos por defecto de la lista */
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  width: 100%;
+}
+
+/* Estilos para los elementos de la lista */
+nav ul li {
+  padding: 10px 15px;
+}
+
+/* Alineación de los elementos */
+nav ul li:first-child {
+  margin-right: auto; /* Empuja el siguiente elemento a la derecha */
+}
+
+/* Estilos para los enlaces */
+nav ul li a {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: color 0.3s;
+}
+
+/* Efecto hover */
+nav ul li a:hover {
+  color: #4CAF50;
+}
