@@ -29,14 +29,24 @@ body {
   box-sizing: border-box;
 }
 
+.victory-counter {
+  margin: 20px 0;
+  padding: 10px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.victory-counter h3 {
+  margin: 0 0 10px 0;
+}
+
 .board {
   width: fit-content;
-  margin: 10rem auto;
+  margin: 4rem auto;
   text-align: center;
 }
 
 .board h1 {
-  color: #eee;
   margin-bottom: 16px;
 }
 
