@@ -55,7 +55,7 @@ function App() {
     setStartingTurn(nextStartingTurn);
 
     window.localStorage.removeItem("board");
-    window.localStorage.setItem("turn", nextStartingTurn); // ✅ Guardamos el nuevo turno inicial
+    window.localStorage.setItem("turn", nextStartingTurn);
   };
 
   return (
