@@ -59,19 +59,22 @@ function App() {
   };
 
   return (
-    <main className='board'>
-      <h1 className='span__text'>Tic Tac Toe</h1>
-      <VictoryCounter winner={winner} />
+<main className="board">
+  <div className="board-layout">
+    <div className="main-content">
+      <h1 className="span__text">Tic Tac Toe</h1>
 
-      <section className='game'>
-        {board.map((square, index) => (
-          <Square key={index} index={index} updateBoard={updateBoard}>
-            {square}
-          </Square>
-        ))}
-      </section>
+      <div className="game-and-counter">
+        <section className="game">
+          {board.map((square, index) => (
+            <Square key={index} index={index} updateBoard={updateBoard}>
+              {square}
+            </Square>
+          ))}
+        </section>
+      </div>
 
-      <section className='turn'>
+      <section className="turn">
         <Square isSelected={turn === TURNS.X}>{TURNS.X}</Square>
         <Square isSelected={turn === TURNS.O}>{TURNS.O}</Square>
       </section>
@@ -79,9 +82,16 @@ function App() {
       <section>
         <button onClick={resetGame}>Reiniciar</button>
       </section>
+    </div>
 
-      <WinnerModal resetGame={resetGame} winner={winner} />
-    </main>
+    {/* Fuera de main-content pero alineado arriba */}
+    <VictoryCounter winner={winner} />
+  </div>
+
+  <WinnerModal resetGame={resetGame} winner={winner} />
+</main>
+
+
   );
 }
 

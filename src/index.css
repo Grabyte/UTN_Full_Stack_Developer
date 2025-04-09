@@ -29,30 +29,45 @@ body {
   box-sizing: border-box;
 }
 
-.victory-counter {
-  margin: 20px 0;
-  padding: 10px;
-  border-radius: 8px;
-  text-align: center;
-}
-
-.victory-counter h3 {
-  margin: 0 0 10px 0;
-}
-
 .board {
-  width: fit-content;
-  margin: 4rem auto;
-  text-align: center;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 4rem;
+}
+
+.board-layout {
+  display: grid;
+  grid-template-columns: 1fr auto; /* main-content + VictoryCounter */
+  gap: 40px;
+  width: 100%;
+  max-width: 900px;
+  padding: 0 1rem;
+  align-items: start; /* Alinea ambos elementos arriba */
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+}
+
+.game-and-counter {
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
 
 .board h1 {
-  margin-bottom: 16px;
+  margin-bottom: 0;
+  text-align: center;
 }
 
 .board button {
   padding: 8px 12px;
-  margin: 25px;
+  margin: 0 auto;
   background: transparent;
   border: 2px solid #eee;
   color: #eee;
@@ -147,4 +162,41 @@ body {
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
+}
+
+.victory-counter {
+  background-color: #333;
+  border: 2px solid #eee;
+  padding: 20px;
+  border-radius: 12px;
+  min-width: 180px;
+  text-align: center;
+  font-size: 18px;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+  align-self: start;
+  margin-top: 42px; /* ← ajuste fino para alineación */
+}
+
+
+.victory-counter h3 {
+  font-size: 22px;
+  margin-bottom: 12px;
+  color: #f5c518;
+}
+
+.victory-counter div {
+  margin: 10px 0;
+  font-weight: bold;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .board-layout {
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
+
+  .victory-counter {
+    margin-top: 20px;
+  }
 }
