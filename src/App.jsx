@@ -1,10 +1,10 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import confetti from 'canvas-confetti'
 import { Square } from './components/Square'
 import { TURNS } from './Constants'
-import {checkWinnerFrom, checkEndGame} from './logic/board'
+import { checkWinnerFrom, checkEndGame } from './logic/board'
 import { WinnerModal } from './components/WinnerModal'
-import { VictoryCounter } from './components/VictoryCounter' // Nuevo componente
+import { VictoryCounter } from './components/VictoryCounter'
 import './App.css'
 
 function App() {
@@ -21,8 +21,19 @@ function App() {
 
   const [winner, setWinner] = useState(null);
 
-  // 👇 Estado que alterna el turno inicial
   const [startingTurn, setStartingTurn] = useState(TURNS.X);
+
+  // Reiniciar automáticamente si al cargar hay un ganador o empate
+  useEffect(() => {
+    const savedBoard = window.localStorage.getItem("board");
+    if (savedBoard) {
+      const parsedBoard = JSON.parse(savedBoard);
+      const savedWinner = checkWinnerFrom(parsedBoard) || checkEndGame(parsedBoard);
+      if (savedWinner) {
+        resetGame();
+      }
+    }
+  }, []);
 
   const updateBoard = (index) => {
     if (board[index] || winner) return;
@@ -59,40 +70,43 @@ function App() {
   };
 
   return (
-<main className="board">
-  <div className="board-layout">
-    <div className="main-content">
-      <h1 className="span__text">Tic Tac Toe</h1>
+    <main className="board">
+      <div className="horizontal-pusher" />
+      <div className="board-layout">
+        <div className="main-content">
+          <h2 className="main-title">
+            Team Gatitos vs Team Perritos 🐱🐶 <br />
+            <span>¿Quién tiene más ganadores?</span>
+          </h2>
 
-      <div className="game-and-counter">
-        <section className="game">
-          {board.map((square, index) => (
-            <Square key={index} index={index} updateBoard={updateBoard}>
-              {square}
-            </Square>
-          ))}
-        </section>
+          <h1 className="span__text">Tic Tac Toe</h1>
+
+          <div className="game-and-counter">
+            <section className="game">
+              {board.map((square, index) => (
+                <Square key={index} index={index} updateBoard={updateBoard}>
+                  {square}
+                </Square>
+              ))}
+            </section>
+          </div>
+
+          <section className="turn">
+            <Square isSelected={turn === TURNS.X}>{TURNS.X}</Square>
+            <Square isSelected={turn === TURNS.O}>{TURNS.O}</Square>
+          </section>
+
+          <section>
+            <button onClick={resetGame}>Reiniciar</button>
+          </section>
+        </div>
+
+        <VictoryCounter winner={winner} />
       </div>
 
-      <section className="turn">
-        <Square isSelected={turn === TURNS.X}>{TURNS.X}</Square>
-        <Square isSelected={turn === TURNS.O}>{TURNS.O}</Square>
-      </section>
-
-      <section>
-        <button onClick={resetGame}>Reiniciar</button>
-      </section>
-    </div>
-
-    {/* Fuera de main-content pero alineado arriba */}
-    <VictoryCounter winner={winner} />
-  </div>
-
-  <WinnerModal resetGame={resetGame} winner={winner} />
-</main>
-
-
+      <WinnerModal resetGame={resetGame} winner={winner} />
+    </main>
   );
 }
 
-export default App
+export default App;

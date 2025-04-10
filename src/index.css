@@ -20,7 +20,6 @@ body {
   display: flex;
   justify-content: center;
   min-width: 320px;
-  min-height: 100vh;
 }
 
 * {
@@ -29,21 +28,32 @@ body {
   box-sizing: border-box;
 }
 
+.main-title {
+  text-align: center;
+  color: 	#e0e0e0;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+  padding: 0 1rem;
+  text-align: center;
+}
+
 .board {
   width: 100%;
   display: flex;
   justify-content: center;
-  margin-top: 4rem;
 }
 
 .board-layout {
   display: grid;
-  grid-template-columns: 1fr auto; /* main-content + VictoryCounter */
+  grid-template-columns: 1fr auto;
   gap: 40px;
   width: 100%;
   max-width: 900px;
-  padding: 0 1rem;
-  align-items: start; /* Alinea ambos elementos arriba */
+  padding: 2rem 0;
+  align-items: start;
 }
 
 .main-content {
@@ -158,7 +168,7 @@ body {
 .span__text {
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   font-weight: 800;
-  background-image: linear-gradient(to left bottom, #ee0505, #ef4900, #ef6b00, #ed8600, #eb9f12);
+  background-image: linear-gradient(to right bottom, #f5c518, #fcb628, #ffa736, #ff9a43, #ff8d4f, #ff8d56, #ff8d5d, #ff8d63, #ff9768, #ffa16d, #feab74, #feb47b);
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
@@ -174,7 +184,7 @@ body {
   font-size: 18px;
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
   align-self: start;
-  margin-top: 42px; /* ← ajuste fino para alineación */
+  margin-top: 160px; /* ← ajuste fino para alineación */
 }
 
 
@@ -188,6 +198,18 @@ body {
   margin: 10px 0;
   font-weight: bold;
 }
+
+.horizontal-pusher {
+  width: 10vw;
+  flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+  .horizontal-pusher {
+    display: none;
+  }
+}
+
 
 /* Responsive */
 @media (max-width: 768px) {
