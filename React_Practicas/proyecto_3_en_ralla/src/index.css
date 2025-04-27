@@ -20,7 +20,6 @@ body {
   display: flex;
   justify-content: center;
   min-width: 320px;
-  min-height: 100vh;
 }
 
 * {
@@ -29,30 +28,56 @@ body {
   box-sizing: border-box;
 }
 
-.victory-counter {
-  margin: 20px 0;
-  padding: 10px;
-  border-radius: 8px;
+.main-title {
   text-align: center;
-}
-
-.victory-counter h3 {
-  margin: 0 0 10px 0;
+  color: 	#e0e0e0;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+  padding: 0 1rem;
+  text-align: center;
 }
 
 .board {
-  width: fit-content;
-  margin: 4rem auto;
-  text-align: center;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.board-layout {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 40px;
+  width: 100%;
+  max-width: 900px;
+  padding: 2rem 0;
+  align-items: start;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+}
+
+.game-and-counter {
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
 
 .board h1 {
-  margin-bottom: 16px;
+  margin-bottom: 0;
+  text-align: center;
 }
 
 .board button {
   padding: 8px 12px;
-  margin: 25px;
+  margin: 0 auto;
   background: transparent;
   border: 2px solid #eee;
   color: #eee;
@@ -143,8 +168,57 @@ body {
 .span__text {
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   font-weight: 800;
-  background-image: linear-gradient(to left bottom, #ee0505, #ef4900, #ef6b00, #ed8600, #eb9f12);
+  background-image: linear-gradient(to right bottom, #f5c518, #fcb628, #ffa736, #ff9a43, #ff8d4f, #ff8d56, #ff8d5d, #ff8d63, #ff9768, #ffa16d, #feab74, #feb47b);
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
+}
+
+.victory-counter {
+  background-color: #333;
+  border: 2px solid #eee;
+  padding: 20px;
+  border-radius: 12px;
+  min-width: 180px;
+  text-align: center;
+  font-size: 18px;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+  align-self: start;
+  margin-top: 160px; /* ← ajuste fino para alineación */
+}
+
+
+.victory-counter h3 {
+  font-size: 22px;
+  margin-bottom: 12px;
+  color: #f5c518;
+}
+
+.victory-counter div {
+  margin: 10px 0;
+  font-weight: bold;
+}
+
+.horizontal-pusher {
+  width: 10vw;
+  flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+  .horizontal-pusher {
+    display: none;
+  }
+}
+
+
+/* Responsive */
+@media (max-width: 768px) {
+  .board-layout {
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
+
+  .victory-counter {
+    margin-top: 20px;
+  }
 }

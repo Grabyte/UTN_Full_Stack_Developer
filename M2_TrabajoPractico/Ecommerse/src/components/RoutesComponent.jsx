@@ -1,5 +1,5 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-import Home from "../pages/home";
+import Home from "../pages/Home";
 import Register from "../pages/Register";
 import Login from "../pages/Login";
 import ProtectedRoute from "../components/ProtectedRoute"; // Importamos el componente protegido
